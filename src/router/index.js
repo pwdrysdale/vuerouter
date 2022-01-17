@@ -19,18 +19,30 @@ const routes = [
   },
 
   {
-    path: "/details/:slug",
+    path: "/destination/:slug",
     name: "DestinationDetails",
     component: () =>
       import(
         /* webpackChunkName: "destinationDetails" */ "../views/DestinationDetails.vue"
       ),
     props: true,
+    children: [
+      {
+        path: "/destination/:slug/:experienceSlug",
+        name: "ExperienceDetail",
+        props: true,
+        component: () =>
+          import(
+            /* webpackChunkName: "experienceDetails" */ "../views/ExperienceDetail.vue"
+          ),
+      },
+    ],
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
+
   mode: "history",
   linkExactActiveClass: "vue-school-active-nav",
   routes,
